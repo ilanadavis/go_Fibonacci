@@ -9,7 +9,6 @@ import (
         "github.com/rs/cors"
   )
 
-
 func fibonacci() func() int {
 	n := 0
 	a := 0
@@ -42,7 +41,6 @@ func Results(w http.ResponseWriter, r *http.Request, params httprouter.Params) {
 //  		print by collecting all with comma in between
 //      convert into json object
 	  }
-
 	}
 }
 

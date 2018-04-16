@@ -26,7 +26,7 @@ numbers to page -->
 <script type="text/javascript">
   function userAction() {
       var xhttp = new XMLHttpRequest();
-      var host = "localhost"
+      var host = "localhost";
       var number = document.getElementById("number").value;
       xhttp.open("GET", host + "/fibonacci/" + number, true);
       xhttp.setRequestHeader("Content-type", "application/json");
