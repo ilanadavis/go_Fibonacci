@@ -6,29 +6,9 @@ import (
         "net/http"
         "github.com/julienschmidt/httprouter"
         "strconv"
+        "github.com/rs/cors"
   )
 
-type Response struct {
-  //input number for n
-  Number int
-  Results []string
-}
-
-/*
-type JsonResponse struct {
-  Meta interface{} `json:"meta"`
-  Data interface{} `json:"data"`
-}
-
-type JsonErrorResponse struct {
-  Error *ApiError `json:"error"`
-}
-
-type ApiError struct {
-  Status int `json:"status"`
-  Title string `json:"title"`
-}
-*/
 
 func fibonacci() func() int {
 	n := 0
@@ -54,21 +34,22 @@ func fibonacci() func() int {
 	}
 }
 
-
 func Results(w http.ResponseWriter, r *http.Request, params httprouter.Params) {
 	if number, err := strconv.Atoi(params.ByName("number")); err == nil {
   	f := fibonacci()
   	for i := 0; i < number; i++ {
-  		fmt.Println(f())
+  	  	fmt.Fprint(w, f())
+//  		print by collecting all with comma in between
+//      convert into json object
 	  }
+
 	}
 }
 
-
 func main() {
   router := httprouter.New()
-//  router.GET("/", Results)
   router.GET("/fibonacci/:number", Results)
-
-  log.Fatal(http.ListenAndServe(":8080", router))
+  
+  handler := cors.Default().Handler(router)
+  log.Fatal(http.ListenAndServe(":8080", handler))
 }

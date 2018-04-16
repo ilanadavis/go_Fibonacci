@@ -17,7 +17,25 @@
     </form>
     <!--button to submit--> 
       <div>
-        <button class="button" type="button" onclick="clickAlert()">Submit</button>
+        <button class="button" type="button" onclick="userAction()">Submit</button>
+<!-- with javascript, when submitted, calls API server. Taking value
+from text field, and using as part of URL. 
+When server responds back, take server response in json, display string of
+numbers to page -->
+
+<script type="text/javascript">
+  function userAction() {
+      var xhttp = new XMLHttpRequest();
+      var host = "localhost"
+      var number = document.getElementById("number").value;
+      xhttp.open("GET", host + "/fibonacci/" + number, true);
+      xhttp.setRequestHeader("Content-type", "application/json");
+      xhttp.send();
+      var response = JSON.parse(xhttp.responseText);
+      console.log(response);
+  }  
+</script>
+  
       </div>
 	</body>
 </html>
